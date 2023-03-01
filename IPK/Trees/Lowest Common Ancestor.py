@@ -16,7 +16,7 @@ def lca(root, v1, v2):
     # otherwise this is not a common ancestor for both
     def findone(node, v):
         if node==None: return False
-        if node.left==v or node.right==v or node==v: return True
+        if node.info==v: return True
         else: return any([findone(node.left, v), findone(node.right, v)])
         
     def findboth(node, lvl):
@@ -24,8 +24,15 @@ def lca(root, v1, v2):
         if all([res1, res2]):
             lnode, llvl = findboth(node.left, lvl+1)
             rnode, rlvl = findboth(node.right, lvl+1)
-            return (lnode, llvl) if llvl>=rlvl else (rnode, rlvl)
+            # if cant find in child node
+            if lvl==llvl and lvl==rlvl:
+                return node, lvl
+            else:# have progress in child node, then use child node
+                return (lnode, llvl) if llvl>=rlvl else (rnode, rlvl)
         else:
-            return (node, lvl)
+            # return to last level if can't find both values in this
+            # unless it's aldy the root
+            return (node, lvl) if node==root else (node, lvl-1)
     
     return findboth(root, 0)[0]
+    
