@@ -17,3 +17,4 @@ def sortedInsert(llist, data):
         lastnode.next = cnode
             
         return head
+    
