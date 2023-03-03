@@ -51,3 +51,16 @@ def reverse(llist): # solution 2, still cant pass
             rev_head.next = node
             node = store
     return rev_head.next
+
+# best
+def reverse(head):
+    # Write your code here
+    if not head:
+        return head
+    else:
+        if head.next:
+            head.prev, head.next =  head.next, head.prev
+            return reverse(head.prev)
+        else:
+            head.next = head.prev
+            return head
