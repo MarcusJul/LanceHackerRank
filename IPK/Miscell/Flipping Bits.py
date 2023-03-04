@@ -32,4 +32,28 @@ def flippingBits(n):
         pass
     return sout
 
-
+#
+def flippingBits(n):
+    bins = [2**(i) for i in range(31,-1,-1)] # create one list
+    
+    s, i = "", 0
+    num = n
+    while(i<32):
+        if bins[i]<=num:
+            bit, left = 1, num-bins[i]
+            s += str(bit)
+            num = left
+        else:
+            s+="0"
+        i+=1
+        
+    sr=""
+    for i in range(len(s)):
+        sr += "0" if int(s[i])>0 else "1"   
+    i = 0
+    sout = 0
+    while(i<32):
+        sout += bins[-i]*int(sr[-i])
+        i+=1
+    
+    return sout
